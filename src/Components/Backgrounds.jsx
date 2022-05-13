@@ -1,7 +1,9 @@
 // This function will return the proper background based on the user's
-// screen-size
+// screen size
 export default function getBackground() {
-  // TODO: that.
+  if (window.innerWidth <= 540) {
+    return MobileBG();
+  }
   return DesktopBG();
 }
 
