@@ -1,4 +1,4 @@
-.App {
+.foreground {
   display: flex;
   justify-content: center;
   width: 480px;
@@ -18,7 +18,7 @@
   width: 100%;
 }
 
-.foreground {
+.contents {
   /* Center the Foreground */
   display: flex;
   justify-content: center;

@@ -6,10 +6,10 @@ import getBackground from "./Components/Backgrounds";
 function App() {
   const bg = getBackground();
   return (
-    <div>
+    <div className="App">
       {bg}
-      <div className="App">
-        <div className="foreground">
+      <div className="foreground">
+        <div className="contents">
           <Headshot email={process.env.REACT_APP_EMAIL}></Headshot>
           <h1>{process.env.REACT_APP_NAME}</h1>
           <h2>{process.env.REACT_APP_TITLE}</h2>
