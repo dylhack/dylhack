@@ -1,6 +1,6 @@
-<script setup lang="ts">
+<script lang="ts">
 import Vue from 'vue';
-  Vue.component('GallaryPage', {});
+  export default Vue.component('GallaryPage', {});
 </script>
 
 <template>
