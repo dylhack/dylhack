@@ -1,26 +1,27 @@
 <script setup lang="ts">
 import GitHubVue from './icons/GitHub.vue';
-import BikeIconVue from './icons/BikeIcon.vue';
-import CameraIconVue from './icons/CameraIcon.vue';
+// import BikeIconVue from './icons/BikeIcon.vue';
+// import CameraIconVue from './icons/CameraIcon.vue';
 import NavButton from './NavButton.vue';
 
 defineProps({
   github: { type: String, default: '' },
-  bike: { type: String, default: '' },
+  // bike: { type: String, default: '' },
 });
 </script>
 
 <template>
   <div class="bar">
-    <NavButton url="/gallery">
-      <CameraIconVue></CameraIconVue>
-    </NavButton>
     <NavButton :url="github">
       <GitHubVue></GitHubVue>
     </NavButton>
+    <!-- NOTE(dylhack): not ready -->
+    <!-- <NavButton url="/gallery">
+      <CameraIconVue></CameraIconVue>
+    </NavButton>
     <NavButton :url="bike">
       <BikeIconVue></BikeIconVue>
-    </NavButton>
+    </NavButton> -->
   </div>
 </template>
 
