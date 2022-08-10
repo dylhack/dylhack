@@ -35,7 +35,7 @@ defineProps<ProfileProps>();
 .profile {
   /* Sizing */
   width: 35%;
-  min-width: 300px;
+  min-width: 350px;
   max-width: 400px;
   padding: 4% 1%;
   gap: 25px;
