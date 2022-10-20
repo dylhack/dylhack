@@ -26,7 +26,7 @@ defineProps<ProfileProps>();
       </vue-typed-js>
     </div>
     <a :href=href>
-      <input class="button book-me" type="button" value="Book Me">
+      <input class="button book-me" type="button" value="GitHub">
     </a>
   </div>
 </template>

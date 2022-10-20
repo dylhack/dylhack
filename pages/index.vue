@@ -2,7 +2,6 @@
 import crypto from 'crypto';
 import Vue, { Component } from 'vue';
 import ProfileCard from "~/components/ProfileCard.vue";
-import NavBar from "~/components/navigation/NavBar.vue";
 
 export type BarButtonProps = {
   icon: Component;
@@ -14,7 +13,7 @@ let titles: string[] = [];
 
 export default Vue.extend({
   name: "IndexPage",
-  components: { NavBar, ProfileCard },
+  components: { ProfileCard },
   data: () => {
     if (pfp.length === 0) {
       const hash = crypto.createHash('md5');
@@ -42,7 +41,6 @@ export default Vue.extend({
   <div class="index">
     <ProfileCard class="profile" :name=name :titles=titles :href=href :pfp=pfp>
     </ProfileCard>
-    <NavBar class="nav" :github="github" :bike="bike" :camera="camera"></NavBar>
   </div>
 </template>
 
