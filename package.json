@@ -1,8 +1,8 @@
 {
-  "name": "new-dylhack",
-  "private": true,
-  "version": "0.0.0",
+  "name": "dylhack-dev",
+  "version": "1.0.0",
   "type": "module",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
