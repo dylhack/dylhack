@@ -7,8 +7,8 @@
 
   type Social = { name: string; href?: string };
 
-  const hostName = import.meta.env.VITE_HOST;
-  const socials: Social[] = JSON.parse(import.meta.env.VITE_SOCIALS);
+  const hostName = import.meta.env.VITE_HOST || "example.com";;
+  const socials: Social[] = JSON.parse(import.meta.env.VITE_SOCIALS || '[{ "name": "GitHub", "href": "https://github.com/dylhack"}]');
   const [name, tld] = hostName.split(".");
   const options = {};
 
