@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { getPadding } from '../main';
   import { toast } from '@zerodevx/svelte-toast'
 
   export let name = 'GitHub';
   export let href;
   export let key = 0;
-  const { length } = ` ${key} ${name} `;
+  export let maxLength = ` ${key} ${name} `.length;
+  const padding = ' '.repeat((maxLength + 1)- ` ${key} ${name} `.length);
 
   const onCopy = () => {
     navigator.clipboard.writeText(name);
@@ -14,9 +14,9 @@
 </script>
 
 {#if href !== undefined}
-  <p>| {key} <a class="name" href={href}>{name}</a>{getPadding(length)} |</p>
+  <p>| {key} <a class="name" href={href}>{name}</a>{padding}|</p>
 {:else}
-  <p on:click={onCopy} on:keypress={onCopy}>| {key} <span class="name clickable">{name}</span>{getPadding(length)} |</p>
+  <p on:click={onCopy} on:keypress={onCopy}>| {key} <span class="name clickable">{name}</span>{padding}|</p>
 {/if}
 
 <style>

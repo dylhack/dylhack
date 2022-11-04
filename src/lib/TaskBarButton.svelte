@@ -4,11 +4,14 @@
   const dispatch = createEventDispatcher();
   let button;
 
+  export let padding = 1;
   export let locked = '🔒';
   export let unlocked = '🔓';
+  export let maxLength = Math.max(locked.length, unlocked.length) + padding * 2;
 
   $: buttonLabel = locked;
 
+  const space = ' '.repeat(padding);
   const bumpState = () => {
     if (buttonLabel === locked) {
       buttonLabel = unlocked;
@@ -22,9 +25,9 @@
 
 
 <div bind:this={button} on:click={bumpState} on:keypress={bumpState} class="taskbar-button">
-  <p>.{'-'.repeat(`| ${buttonLabel} |`.length - 1)}</p>
-  <p>| {buttonLabel} |</p>
-  <p>'{'-'.repeat(`| ${buttonLabel} |`.length - 1)}</p>
+  <p>.{'-'.repeat(maxLength)}-</p>
+  <p>|{space}{buttonLabel}{space}|</p>
+  <p>'{'-'.repeat(maxLength)}-</p>
 </div>
 
 <style>

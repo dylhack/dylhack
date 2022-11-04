@@ -1,22 +1,29 @@
 <script lang="ts">
-  import { VITE_HOST, VITE_SOCIALS, repeat } from "./main";
   import Host from "./lib/Host.svelte";
   import Cat from "./lib/Cat.svelte";
   import Social from "./lib/Social.svelte";
   import TaskBarButton from "./lib/TaskBarButton.svelte";
   import { SvelteToast } from "@zerodevx/svelte-toast";
 
-  const options = {};
-
   type Social = { name: string; href?: string };
 
-  export let hostName = VITE_HOST;
-  export let socials: Social[] = VITE_SOCIALS;
+  const hostName = import.meta.env.VITE_HOST;
+  const socials: Social[] = JSON.parse(import.meta.env.VITE_SOCIALS);
   const [name, tld] = hostName.split(".");
+  const options = {};
 
+  // Taskbar Button
+  const buttonLocked = '+';
+  const buttonUnlocked = '-';
+  const buttonPadding = 1;
+  const buttonLength = Math.max(buttonLocked.length, buttonUnlocked.length) + buttonPadding * 2;
+
+  // Socials length
+  const socialsLength = buttonLength + 1 + 27;
+
+  let i = 0, width = 0;
   $: isLocked = true;
 
-  let i = 0;
   const getI = () => i++;
   const onUnlock = () => {
     isLocked = false;
@@ -25,8 +32,15 @@
     isLocked = true;
     i = 0;
   };
+  const getWidth = (): number => {
+    if (width > 0) return width;
+    socials.forEach((social) => {
+    });
+    return width;
+  };
 
   document.title = hostName;
+  console.debug({ hostName, socials });
 </script>
 
 <main>
@@ -38,18 +52,20 @@
     <TaskBarButton
       on:unlock={onUnlock}
       on:lock={onLock}
-      locked="X"
-      unlocked="-"
+      locked={buttonLocked}
+      unlocked={buttonUnlocked}
+      maxLength={buttonLength}
+      padding={buttonPadding}
     />
-    <Host {name} tld={"." + tld} />
+    <Host {name} tld={"." + tld} maxLength={27} />
   </div>
   <!-- TODO(dylhack): add animations つ ◕_◕ ༽つ -->
   {#if !isLocked}
-    <p>|{repeat(" ")}|</p>
+    <p>|{" ".repeat(socialsLength)}|</p>
     {#each socials as social}
-      <Social name={social.name} href={social.href} key={getI()} />
+      <Social name={social.name} href={social.href} key={getI()} maxLength={socialsLength} />
     {/each}
-    <p>'{repeat("-")}'</p>
+    <p>'{"-".repeat(socialsLength)}'</p>
   {/if}
 </main>
 

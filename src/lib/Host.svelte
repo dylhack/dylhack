@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { getPadding, repeat } from '../main';
-
   export let name = '';
   export let tld = '';
+  export let maxLength = 17;
   const full = `${name}.${tld}`;
-  let length = ` ${full} `.length + 4;
+  const rightPadding = ' '.repeat(maxLength - (full.length));
+  const divider = '-'.repeat(maxLength);
 
   const colors = [
     'inherit',
@@ -34,9 +34,9 @@
 --------------------------'
  -->
 <div>
-  <p>{repeat("-", 4)}.</p>
-    <p>| <b>{name}<span style="color: {color};" on:click={bumpColor} on:keypress={bumpColor}>{tld}</span></b>{getPadding(length)} |</p>
-  <p>{repeat("-", 4)}'</p>
+  <p>{divider}.</p>
+    <p>&nbsp;<b>{name}<span style="color: {color};" on:click={bumpColor} on:keypress={bumpColor}>{tld}</span></b>{rightPadding}|</p>
+  <p>{divider}'</p>
 </div>
 
 <style>
