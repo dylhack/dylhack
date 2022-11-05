@@ -22,7 +22,8 @@
   // Socials length
   const socialsOffset = buttonLength + 2;
   const socialsPadding = padding;
-  let socialsLength = socialsOffset;
+  // NOTE(dylhack): 13 is the length of the cat
+  let socialsLength = socialsOffset + 13;
   socials.forEach(social => {
     const x = socialsOffset + social.name.length;
     if (x > socialsLength) socialsLength = x;
