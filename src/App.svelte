@@ -11,17 +11,28 @@
   const socials: Social[] = JSON.parse(import.meta.env.VITE_SOCIALS || '[{ "name": "GitHub", "href": "https://github.com/dylhack"}]');
   const [name, tld] = hostName.split(".");
   const options = {};
+  const padding = 1;
 
   // Taskbar Button
   const buttonLocked = '+';
   const buttonUnlocked = '-';
-  const buttonPadding = 1;
+  const buttonPadding = padding;
   const buttonLength = Math.max(buttonLocked.length, buttonUnlocked.length) + buttonPadding * 2;
 
   // Socials length
-  const socialsLength = buttonLength + 1 + 27;
+  const socialsOffset = buttonLength + 2;
+  const socialsPadding = padding;
+  let socialsLength = socialsOffset;
+  socials.forEach(social => {
+    const x = socialsOffset + social.name.length;
+    if (x > socialsLength) socialsLength = x;
+  });
 
-  let i = 0, width = 0;
+  console.log(socialsLength);
+  // Host
+  const hostsLength = (socialsLength + socialsPadding) - (buttonLength + 1);
+
+  let i = 0;
   $: isLocked = true;
 
   const getI = () => i++;
@@ -31,12 +42,6 @@
   const onLock = () => {
     isLocked = true;
     i = 0;
-  };
-  const getWidth = (): number => {
-    if (width > 0) return width;
-    socials.forEach((social) => {
-    });
-    return width;
   };
 
   document.title = hostName;
@@ -57,15 +62,15 @@
       maxLength={buttonLength}
       padding={buttonPadding}
     />
-    <Host {name} tld={"." + tld} maxLength={27} />
+    <Host {name} tld={"." + tld} maxLength={hostsLength} />
   </div>
   <!-- TODO(dylhack): add animations つ ◕_◕ ༽つ -->
   {#if !isLocked}
-    <p>|{" ".repeat(socialsLength)}|</p>
+    <p>|{" ".repeat(socialsLength + socialsPadding)}|</p>
     {#each socials as social}
-      <Social name={social.name} href={social.href} key={getI()} maxLength={socialsLength} />
+      <Social name={social.name} href={social.href} key={getI()} padding={socialsPadding} maxLength={socialsLength} />
     {/each}
-    <p>'{"-".repeat(socialsLength)}'</p>
+    <p>'{"-".repeat(socialsLength + socialsPadding)}'</p>
   {/if}
 </main>
 
@@ -80,7 +85,7 @@
   }
 
   .cat {
-    margin-left: 33%;
+    margin-left: auto;
     cursor: pointer;
   }
 

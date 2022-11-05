@@ -5,7 +5,9 @@
   export let href;
   export let key = 0;
   export let maxLength = ` ${key} | ${name} `.length;
-  const padding = ' '.repeat((maxLength + 1) - ` ${key} | ${name} `.length);
+  export let padding = 1;
+  const keySpace = ' '.repeat(padding);
+  const rightSpace = ' '.repeat((maxLength + padding) - `${keySpace}${key}${keySpace}| ${name}`.length);
 
   const onCopy = () => {
     navigator.clipboard.writeText(name);
@@ -14,9 +16,9 @@
 </script>
 
 {#if href !== undefined}
-  <p>| {key} | <a class="name" href={href}>{name}</a>{padding}|</p>
+  <p>|{keySpace}{key}{keySpace}| <a class="name" href={href}>{name}</a>{rightSpace}|</p>
 {:else}
-  <p on:click={onCopy} on:keypress={onCopy}>| {key} | <span class="name clickable">{name}</span>{padding}|</p>
+  <p on:click={onCopy} on:keypress={onCopy}>|{keySpace}{key}{keySpace}| <span class="name clickable">{name}</span>{rightSpace}|</p>
 {/if}
 
 <style>
