@@ -4,8 +4,8 @@
   export let name = 'GitHub';
   export let href;
   export let key = 0;
-  export let maxLength = ` ${key} ${name} `.length;
-  const padding = ' '.repeat((maxLength + 1)- ` ${key} ${name} `.length);
+  export let maxLength = ` ${key} | ${name} `.length;
+  const padding = ' '.repeat((maxLength + 1) - ` ${key} | ${name} `.length);
 
   const onCopy = () => {
     navigator.clipboard.writeText(name);
@@ -14,9 +14,9 @@
 </script>
 
 {#if href !== undefined}
-  <p>| {key} <a class="name" href={href}>{name}</a>{padding}|</p>
+  <p>| {key} | <a class="name" href={href}>{name}</a>{padding}|</p>
 {:else}
-  <p on:click={onCopy} on:keypress={onCopy}>| {key} <span class="name clickable">{name}</span>{padding}|</p>
+  <p on:click={onCopy} on:keypress={onCopy}>| {key} | <span class="name clickable">{name}</span>{padding}|</p>
 {/if}
 
 <style>
