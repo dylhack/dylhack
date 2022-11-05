@@ -21,11 +21,21 @@
 
   $: color = 'inherit';
 
-  const bumpColor = () => {
+  const bumpColor = (neg = false) => {
+    if (neg) {
+      colorI -= 1;
+      if (colorI < 0) colorI = colors.length - 1;
+    } else {
       colorI += 1;
       if (colors.length === colorI) colorI = 0;
-      color = colors[colorI];
+    }
+    color = colors[colorI];
   }
+
+  window.addEventListener('keyup', (e: KeyboardEvent) => {
+    if (e.key === 'k') bumpColor();
+    else if (e.key === 'j') bumpColor(true);
+  });
 </script>
 
 <!-- 
@@ -35,7 +45,7 @@
  -->
 <div>
   <p>{divider}.</p>
-    <p>&nbsp;<b>{name}<span style="color: {color};" on:click={bumpColor} on:keypress={bumpColor}>{tld}</span></b>{rightPadding}|</p>
+    <p>&nbsp;<b>{name}<span style="color: {color};" on:click={() => bumpColor} on:keypress={() => bumpColor}>{tld}</span></b>{rightPadding}|</p>
   <p>{divider}'</p>
 </div>
 

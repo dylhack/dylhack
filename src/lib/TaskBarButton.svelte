@@ -21,6 +21,10 @@
       dispatch('lock', button);
     }
   }
+
+  window.addEventListener('keyup', (e: KeyboardEvent) => {
+    if (e.code === 'Space') bumpState();
+  });
 </script>
 
 

@@ -3,7 +3,7 @@
   import Cat from "./lib/Cat.svelte";
   import Social from "./lib/Social.svelte";
   import TaskBarButton from "./lib/TaskBarButton.svelte";
-  import { SvelteToast } from "@zerodevx/svelte-toast";
+  import { SvelteToast, toast } from "@zerodevx/svelte-toast";
 
   type Social = { name: string; href?: string };
 
@@ -44,6 +44,27 @@
     i = 0;
   };
 
+  const onSocialInteraction = (social: Social) => {
+    const { name, href } = social;
+    if (href) window.open(href, '_blank');
+    else {
+      navigator.clipboard.writeText(name);
+      toast.push('Copied!', { duration: 2000 });
+    }
+  }
+  const onSocialClick = (e: CustomEvent<{ name: string, href?: string }>) => {
+    onSocialInteraction(e.detail);
+  }
+  window.addEventListener('keyup', (e: KeyboardEvent) => {
+    if ((/[0-9]/).test(e.key)) {
+      const n = parseInt(e.key);
+      if (n < socials.length) {
+        const social = socials[n];
+        if (social) onSocialInteraction(social);
+      }
+    }
+  });
+
   document.title = hostName;
   console.debug({ hostName, socials });
 </script>
@@ -68,7 +89,13 @@
   {#if !isLocked}
     <p>|{" ".repeat(socialsLength + socialsPadding)}|</p>
     {#each socials as social}
-      <Social name={social.name} href={social.href} key={getI()} padding={socialsPadding} maxLength={socialsLength} />
+      <Social
+        name={social.name} href={social.href} 
+        key={getI()} 
+        padding={socialsPadding}
+        maxLength={socialsLength} 
+        on:click={onSocialClick}
+      />
     {/each}
     <p>'{"-".repeat(socialsLength + socialsPadding)}'</p>
   {/if}

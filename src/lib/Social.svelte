@@ -1,25 +1,24 @@
 <script lang="ts">
-  import { toast } from '@zerodevx/svelte-toast'
+  import { createEventDispatcher } from 'svelte'
 
   export let name = 'GitHub';
   export let href;
   export let key = 0;
   export let maxLength = ` ${key} | ${name} `.length;
   export let padding = 1;
+
+  const dispatch = createEventDispatcher();
   const keySpace = ' '.repeat(padding);
   const rightSpace = ' '.repeat((maxLength + padding) - `${keySpace}${key}${keySpace}| ${name}`.length);
 
-  const onCopy = () => {
-    navigator.clipboard.writeText(name);
-    toast.push('Copied!', { duration: 2000 });
+  const onClick = () => {
+    dispatch('click', { name, href });
   }
 </script>
 
-{#if href !== undefined}
-  <p>|{keySpace}{key}{keySpace}| <a class="name" href={href}>{name}</a>{rightSpace}|</p>
-{:else}
-  <p on:click={onCopy} on:keypress={onCopy}>|{keySpace}{key}{keySpace}| <span class="name clickable">{name}</span>{rightSpace}|</p>
-{/if}
+<!-- NOTE(dylhack): ally is ignored because a custom system has been added. -->
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<p on:click={onClick}>|{keySpace}{key}{keySpace}| <span class="name clickable">{name}</span>{rightSpace}|</p>
 
 <style>
   .name {
