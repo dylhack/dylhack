@@ -63,7 +63,6 @@
     }
   });
 
-  document.title = hostName;
   console.debug({ hostName, socials });
 </script>
 
@@ -83,6 +82,7 @@
   <meta property="twitter:title" content="{title}">
   <meta property="twitter:description" content="{description}">
   <meta property="twitter:image" content="{image}">
+  <title>{hostName}</title>
 </svelte:head>
 
 <main>
