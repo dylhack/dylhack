@@ -23,7 +23,7 @@
   }
 
   window.addEventListener('keyup', (e: KeyboardEvent) => {
-    if (e.code === 'Space') bumpState();
+    if (e.code === 'Space' || e.code === 'Tab') bumpState();
   });
 </script>
 
