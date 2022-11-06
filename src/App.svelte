@@ -34,7 +34,6 @@
     if (x > socialsLength) socialsLength = x;
   });
 
-  console.log(socialsLength);
   // Host
   const hostsLength = (socialsLength + socialsPadding) - (buttonLength + 1);
 
