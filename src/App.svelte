@@ -54,6 +54,7 @@
     onSocialInteraction(e.detail);
   }
   window.addEventListener('keyup', (e: KeyboardEvent) => {
+    if (isLocked) return;
     if ((/[0-9]/).test(e.key)) {
       const n = parseInt(e.key);
       if (n < socials.length) {
