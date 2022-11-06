@@ -9,6 +9,11 @@
 
   const hostName = import.meta.env.VITE_HOST || "example.com";;
   const socials: Social[] = JSON.parse(import.meta.env.VITE_SOCIALS || '[{ "name": "GitHub", "href": "https://github.com/dylhack"}]');
+  // Meta tags
+  const title = import.meta.env.VITE_TITLE || hostName;
+  const description = import.meta.env.VITE_DESCRIPTION || `${hostName}'s personal website`;
+  const image = import.meta.env.VITE_IMAGE || `https://${hostName}/vite.svg`;
+
   const [name, tld] = hostName.split(".");
   const options = {};
   const padding = 1;
@@ -33,18 +38,10 @@
   // Host
   const hostsLength = (socialsLength + socialsPadding) - (buttonLength + 1);
 
-  let i = 0;
   $: isLocked = true;
 
-  const getI = () => i++;
-  const onUnlock = () => {
-    isLocked = false;
-  };
-  const onLock = () => {
-    isLocked = true;
-    i = 0;
-  };
-
+  const onUnlock = () => isLocked = false;
+  const onLock = () => isLocked = true;
   const onSocialInteraction = (social: Social) => {
     const { name, href } = social;
     if (href) window.open(href, '_blank');
@@ -71,7 +68,24 @@
 </script>
 
 <main>
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="{title}">
+  <meta name="description" content="{description}">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://{hostName}">
+  <meta property="og:title" content="{title}">
+  <meta property="og:description" content="{description}">
+  <meta property="og:image" content="{image}">
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_small_image">
+  <meta property="twitter:url" content="https://{hostName}">
+  <meta property="twitter:title" content="{title}">
+  <meta property="twitter:description" content="{description}">
+  <meta property="twitter:image" content="{image}">
+
   <SvelteToast {options} />
+
   <div class="cat">
     <Cat />
   </div>
@@ -89,10 +103,10 @@
   <!-- TODO(dylhack): add animations つ ◕_◕ ༽つ -->
   {#if !isLocked}
     <p>|{" ".repeat(socialsLength + socialsPadding)}|</p>
-    {#each socials as social}
+    {#each socials as social, i}
       <Social
         name={social.name} href={social.href} 
-        key={getI()} 
+        key={i} 
         padding={socialsPadding}
         maxLength={socialsLength} 
         on:click={onSocialClick}
