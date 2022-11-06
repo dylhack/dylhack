@@ -68,7 +68,7 @@
   console.debug({ hostName, socials });
 </script>
 
-<main>
+<svelte:head>
   <!-- Primary Meta Tags -->
   <meta name="title" content="{title}">
   <meta name="description" content="{description}">
@@ -84,7 +84,9 @@
   <meta property="twitter:title" content="{title}">
   <meta property="twitter:description" content="{description}">
   <meta property="twitter:image" content="{image}">
+</svelte:head>
 
+<main>
   <SvelteToast {options} />
 
   <div class="cat">

@@ -45,7 +45,7 @@
  -->
 <div>
   <p>{divider}.</p>
-    <p>&nbsp;<b>{name}<span style="color: {color};" on:click={() => bumpColor} on:keypress={() => bumpColor}>{tld}</span></b>{rightPadding}|</p>
+    <p>&nbsp;<b>{name}<span style="color: {color};" on:click={() => bumpColor()} on:keypress={() => bumpColor()}>{tld}</span></b>{rightPadding}|</p>
   <p>{divider}'</p>
 </div>
 
