@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher, onMount } from "svelte";
 
   const dispatch = createEventDispatcher();
-  let button;
+  let button: HTMLDivElement;
 
   export let padding = 1;
   export let locked = '🔒';
@@ -22,9 +22,11 @@
     }
   }
 
-  window.addEventListener('keyup', (e: KeyboardEvent) => {
-    if (e.code === 'Space' || e.code === 'Tab') bumpState();
-  });
+  onMount(() => {
+    window.addEventListener('keyup', (e: KeyboardEvent) => {
+      if (e.code === 'Space' || e.code === 'Tab') bumpState();
+    });
+  })
 </script>
 
 

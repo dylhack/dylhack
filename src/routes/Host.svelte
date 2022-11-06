@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { onMount } from "svelte";
+
+
   export let name = '';
   export let tld = '';
   export let maxLength = 17;
@@ -32,9 +35,11 @@
     color = colors[colorI];
   }
 
-  window.addEventListener('keyup', (e: KeyboardEvent) => {
-    if (e.key === 'k') bumpColor();
-    else if (e.key === 'j') bumpColor(true);
+  onMount(() => {
+    window.addEventListener('keyup', (e: KeyboardEvent) => {
+      if (e.key === 'k') bumpColor();
+      else if (e.key === 'j') bumpColor(true);
+    });
   });
 </script>
 

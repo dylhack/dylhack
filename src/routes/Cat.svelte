@@ -1,11 +1,15 @@
 <script lang="ts">
+	import { onMount } from "svelte";
+
   $: hideCat= true;
 
   const bumpCatState = () => hideCat = !hideCat;
 
-  window.addEventListener('keyup', (e: KeyboardEvent) => {
-    if (e.key === 'c') bumpCatState();
-  });
+  onMount(() => {
+    window.addEventListener('keyup', (e: KeyboardEvent) => {
+      if (e.key === 'c') bumpCatState();
+    });
+  })
 </script>
 
 <div on:click={bumpCatState} on:keypress={bumpCatState} class="cat">

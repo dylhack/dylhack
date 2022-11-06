@@ -1,21 +1,21 @@
 <script lang="ts">
-  import Host from "./lib/Host.svelte";
-  import Cat from "./lib/Cat.svelte";
-  import Social from "./lib/Social.svelte";
-  import TaskBarButton from "./lib/TaskBarButton.svelte";
-  import { SvelteToast, toast } from "@zerodevx/svelte-toast";
+  import { toast } from "@zerodevx/svelte-toast";
+  import Host from "./Host.svelte";
+  import Cat from "./Cat.svelte";
+  import Social from "./Social.svelte";
+  import TaskBarButton from "./TaskBarButton.svelte";
+	import { onMount } from "svelte";
 
   type Social = { name: string; href?: string };
 
-  const hostName = import.meta.env.VITE_HOST || "example.com";;
-  const socials: Social[] = JSON.parse(import.meta.env.VITE_SOCIALS || '[{ "name": "GitHub", "href": "https://github.com/dylhack"}]');
-  // Meta tags
-  const title = import.meta.env.VITE_TITLE || hostName;
-  const description = import.meta.env.VITE_DESCRIPTION || `${hostName}'s personal website`;
-  const image = import.meta.env.VITE_IMAGE || `https://${hostName}/vite.svg`;
+  export let hostname = 'example.com';
+  export let socials: Social[] = [{ "name": "GitHub", "href": "https://github.com/dylhack" }];
+  export let title = hostname;
+  export let description = `${hostname}'s personal website.`
+  export let image = `https://${hostname}/image.png`; 
 
-  const [name, tld] = hostName.split(".");
-  const options = {};
+  // Meta tags
+  const [name, tld] = hostname.split(".");
   const padding = 1;
 
   // Taskbar Button
@@ -52,18 +52,21 @@
   const onSocialClick = (e: CustomEvent<{ name: string, href?: string }>) => {
     onSocialInteraction(e.detail);
   }
-  window.addEventListener('keyup', (e: KeyboardEvent) => {
-    if (isLocked) return;
-    if ((/[0-9]/).test(e.key)) {
-      const n = parseInt(e.key);
-      if (n < socials.length) {
-        const social = socials[n];
-        if (social) onSocialInteraction(social);
-      }
-    }
-  });
+	onMount(() => {
+		window.addEventListener('keyup', (e: KeyboardEvent) => {
+			if (isLocked) return;
+			if ((/[0-9]/).test(e.key)) {
+				const n = parseInt(e.key);
+				if (n < socials.length) {
+					const social = socials[n];
+					if (social) onSocialInteraction(social);
+				}
+			}
+		});
 
-  console.debug({ hostName, socials });
+		console.debug({ hostName: hostname, socials });
+	})
+
 </script>
 
 <svelte:head>
@@ -72,22 +75,20 @@
   <meta name="description" content="{description}">
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://{hostName}">
+  <meta property="og:url" content="https://{hostname}">
   <meta property="og:title" content="{title}">
   <meta property="og:description" content="{description}">
-  <meta property="og:image" content="https://${hostName}/{image}">
+  <meta property="og:image" content="https://${hostname}/{image}">
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_small_image">
-  <meta property="twitter:url" content="https://{hostName}">
+  <meta property="twitter:url" content="https://{hostname}">
   <meta property="twitter:title" content="{title}">
   <meta property="twitter:description" content="{description}">
-  <meta property="twitter:image" content="https://${hostName}/{image}">
-  <title>{hostName}</title>
+  <meta property="twitter:image" content="https://${hostname}/{image}">
+  <title>{hostname}</title>
 </svelte:head>
 
-<main>
-  <SvelteToast {options} />
-
+<div>
   <div class="cat">
     <Cat />
   </div>
@@ -116,17 +117,9 @@
     {/each}
     <p>'{"-".repeat(socialsLength + socialsPadding)}'</p>
   {/if}
-</main>
+</div>
 
 <style>
-  main {
-    line-height: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100vh;
-    gap: 0;
-  }
 
   .cat {
     margin-left: auto;

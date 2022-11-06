@@ -2,7 +2,7 @@
   import { createEventDispatcher } from 'svelte'
 
   export let name = 'GitHub';
-  export let href;
+  export let href: string | undefined;
   export let key = 0;
   export let maxLength = ` ${key} | ${name} `.length;
   export let padding = 1;
