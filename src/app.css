@@ -1,3 +1,15 @@
+@font-face {
+  font-family: 'Azeret Mono';
+  src: url('./assets/fonts/AzeretMono-Regular.otf');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Azeret Mono';
+  src: url('./assets/fonts/AzeretMono-Bold.otf');
+  font-weight: bold;
+}
+
 :root {
   --bg: #0A2E36;
   --fg: #FCFFFC;
