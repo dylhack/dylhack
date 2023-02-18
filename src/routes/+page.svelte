@@ -12,6 +12,9 @@
 </main>
 
 <style global>
+	/* or using unpkg.com */
+	@import url('https://unpkg.com/@catppuccin/palette/css/catppuccin.css');
+
 	@font-face {
 		font-family: 'Azeret Mono';
 		src: url('/fonts/AzeretMono-Regular.otf');
@@ -25,10 +28,10 @@
 	}
 
 	:root {
-		--bg: #0a2e36;
-		--fg: #fcfffc;
-		--primary: #2ba84a;
-		--secondary: #248232;
+		--bg: var(--ctp-mocha-base);
+		--fg: var(--ctp-mocha-text);
+		--primary: var(--ctp-mocha-green);
+		--secondary: var(--ctp-mocha-green);
 
 		font-synthesis: none;
 		text-rendering: optimizeLegibility;
@@ -37,7 +40,7 @@
 		-webkit-text-size-adjust: 100%;
 
     /* Toast Notificaitons */
-    --toastBarBackground: var(--secondary);
+    --toastBarBackground: var(--ctp-latte-green);
     --toastBackground: rgba(0, 0, 0, 0);
     --toastBoxShadow: none;
     --toastBarHeight: 2px;
@@ -45,8 +48,8 @@
 
 	body {
 		font-family: 'Azeret Mono', monospace;
-		color: var(--fg);
-		background-color: var(--bg);
+		color: var(--ctp-mocha-text);
+		background-color: var(--ctp-mocha-base);
 
 		margin: 0;
 		padding: 0;

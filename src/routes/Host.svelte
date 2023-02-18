@@ -9,16 +9,18 @@
   const rightPadding = ' '.repeat(maxLength - (full.length));
   const divider = '-'.repeat(maxLength);
 
+  // SOURCE: https://unpkg.com/@catppuccin/palette@0.1.6/css/catppuccin.css
+  // I ❤ Catppuccin
   const colors = [
     'inherit',
-    '#ffadadff',
-    '#ffd6a5ff',
-    '#fdffb6ff',
-    '#caffbfff',
-    '#9bf6ffff',
-    '#a0c4ffff',
-    '#bdb2ffff',
-    '#ffc6ffff',
+    '#f38ba8',   // RED
+    '#eba0ac',   // ORANGE
+    '#f9e2af',   // YELLOW
+    '#a6e3a1',   // GREEN
+    '#74c7ec',   // CYAN
+    '#89b4fa',   // BLUE 
+    '#cba6f7',   // PURPLE
+    '#f5c2e7',   // PINK
   ];
   let colorI = 0;
 
