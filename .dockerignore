@@ -1,0 +1,5 @@
+.svelte-kit
+.devcontainer
+node_modules
+README.md
+settings.example.json
