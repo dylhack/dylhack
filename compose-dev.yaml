@@ -1,0 +1,13 @@
+services:
+  frontend:
+    build:
+      context: .
+      target: dev-envs
+    ports:
+      - "3001:80"
+    volumes:
+      - "./src:/opt/app/src"
+      - "./package.json:/opt/app/package.json"
+      - "./package-lock.json:/opt/app/package-lock.json"
+      - "./settings.json:/opt/app/settings.json"
+
