@@ -1,48 +1,47 @@
 <script lang="ts">
-  import { createEventDispatcher, onMount } from "svelte";
+	import { createEventDispatcher, onMount } from 'svelte';
 
-  const dispatch = createEventDispatcher();
-  let button: HTMLDivElement;
+	const dispatch = createEventDispatcher();
+	let button: HTMLDivElement;
 
-  export let padding = 1;
-  export let locked = '🔒';
-  export let unlocked = '🔓';
-  export let maxLength = Math.max(locked.length, unlocked.length) + padding * 2;
+	export let padding = 1;
+	export let locked = '🔒';
+	export let unlocked = '🔓';
+	export let maxLength = Math.max(locked.length, unlocked.length) + padding * 2;
 
-  $: buttonLabel = locked;
+	$: buttonLabel = locked;
 
-  const space = ' '.repeat(padding);
-  const bumpState = () => {
-    if (buttonLabel === locked) {
-      buttonLabel = unlocked;
-      dispatch('unlock', button);
-    } else {
-      buttonLabel = locked;
-      dispatch('lock', button);
-    }
-  }
+	const space = ' '.repeat(padding);
+	const bumpState = () => {
+		if (buttonLabel === locked) {
+			buttonLabel = unlocked;
+			dispatch('unlock', button);
+		} else {
+			buttonLabel = locked;
+			dispatch('lock', button);
+		}
+	};
 
-  onMount(() => {
-    window.addEventListener('keyup', (e: KeyboardEvent) => {
-      if (e.code === 'Space' || e.code === 'Tab') bumpState();
-    });
-  })
+	onMount(() => {
+		window.addEventListener('keyup', (e: KeyboardEvent) => {
+			if (e.code === 'Space' || e.code === 'Tab') bumpState();
+		});
+	});
 </script>
 
-
 <div bind:this={button} on:click={bumpState} on:keypress={bumpState} class="taskbar-button">
-  <p>.{'-'.repeat(maxLength)}-</p>
-  <p>|{space}{buttonLabel}{space}|</p>
-  <p>'{'-'.repeat(maxLength)}-</p>
+	<p>.{'-'.repeat(maxLength)}-</p>
+	<p>|{space}{buttonLabel}{space}|</p>
+	<p>'{'-'.repeat(maxLength)}-</p>
 </div>
 
-<style>
-  p {
-    color: var(--primary);
-  }
+<style scoped>
+	p {
+		color: var(--primary);
+	}
 
-  div {
-    color: var(--secondary);
-    cursor: pointer;
-  }
+	div {
+		color: var(--secondary);
+		cursor: pointer;
+	}
 </style>

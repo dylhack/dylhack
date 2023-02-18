@@ -1,32 +1,36 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte'
+	import { createEventDispatcher } from 'svelte';
 
-  export let name = 'GitHub';
-  export let href: string | undefined;
-  export let key = 0;
-  export let maxLength = ` ${key} | ${name} `.length;
-  export let padding = 1;
+	export let name = 'GitHub';
+	export let href: string | undefined;
+	export let key = 0;
+	export let maxLength = ` ${key} | ${name} `.length;
+	export let padding = 1;
 
-  const dispatch = createEventDispatcher();
-  const keySpace = ' '.repeat(padding);
-  const rightSpace = ' '.repeat((maxLength + padding) - `${keySpace}${key}${keySpace}| ${name}`.length);
+	const dispatch = createEventDispatcher();
+	const keySpace = ' '.repeat(padding);
+	const rightSpace = ' '.repeat(
+		maxLength + padding - `${keySpace}${key}${keySpace}| ${name}`.length
+	);
 
-  const onClick = () => {
-    dispatch('click', { name, href });
-  }
+	const onClick = () => {
+		dispatch('click', { name, href });
+	};
 </script>
 
 <!-- NOTE(dylhack): ally is ignored because a custom system has been added. -->
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<p on:click={onClick}>|{keySpace}{key}{keySpace}| <span class="name clickable">{name}</span>{rightSpace}|</p>
+<p on:click={onClick}>
+	|{keySpace}{key}{keySpace}| <span class="name clickable">{name}</span>{rightSpace}|
+</p>
 
-<style>
-  .name {
-    color: var(--primary);
-    cursor: pointer;
-  }
+<style scoped>
+	.name {
+		color: var(--primary);
+		cursor: pointer;
+	}
 
-  .name:hover {
-    color: var(--secondary);
-  }
+	.name:hover {
+		color: var(--secondary);
+	}
 </style>

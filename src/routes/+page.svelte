@@ -6,7 +6,7 @@
 	const settings: Settings = global.settings;
 </script>
 
-<SvelteToast  />
+<SvelteToast />
 <main>
 	<App {...settings} />
 </main>
@@ -39,11 +39,11 @@
 		-moz-osx-font-smoothing: grayscale;
 		-webkit-text-size-adjust: 100%;
 
-    /* Toast Notificaitons */
-    --toastBarBackground: var(--ctp-latte-green);
-    --toastBackground: rgba(0, 0, 0, 0);
-    --toastBoxShadow: none;
-    --toastBarHeight: 2px;
+		/* Toast Notificaitons */
+		--toastBarBackground: var(--ctp-latte-green);
+		--toastBackground: rgba(0, 0, 0, 0);
+		--toastBoxShadow: none;
+		--toastBarHeight: 2px;
 	}
 
 	body {
