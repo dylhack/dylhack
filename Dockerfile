@@ -19,7 +19,7 @@ CMD npm run dev -- --host --port 80
 
 FROM nginx:1.21.3-alpine
 
-COPY --from=builder /opt/app/dist /usr/share/nginx/html
+COPY --from=builder /opt/app/build /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 
