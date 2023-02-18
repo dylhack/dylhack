@@ -4,11 +4,13 @@ import settings from './settings.json';
 import fs from 'node:fs';
 
 const data = fs.readFileSync('./art.txt', 'utf8');
+const art = data.toString().replace(/\n$/, "");
+
 
 const config: UserConfig = {
 	plugins: [sveltekit()],
 	base: "./",
-	define: { global: { settings, art: data.toString() }},
+	define: { global: { settings, art }},
 };
 
 export default config;
