@@ -1,12 +1,13 @@
 {
-    "title": "John Doe",
-    "description": "John Doe's personal website.",
-    "hostname": "example.com",
-    "image": "https://example.com/my%20image.png",
-    "socials": [
-      { 
-        "name": "GitHub",
-        "href": "https://github.com/dylhack"
-      }
-    ]
+  "title": "John Doe",
+  "description": "John Doe's personal website.",
+  "hostname": "example.com",
+  "image": "https://example.com/my%20image.png",
+  "splitAt": 5,
+  "socials": [
+    {
+      "name": "GitHub",
+      "href": "https://github.com/dylhack"
+    }
+  ]
 }

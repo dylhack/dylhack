@@ -6,9 +6,8 @@
 	import TaskBarButton from './TaskBarButton.svelte';
 	import { onMount } from 'svelte';
 
-  const splitAt = 8;
-	// @ts-ignore
-  const art: string = global.art;
+  export let splitAt: number = 8;
+  export let art: string = '';
 	const longestLine = art
 		.split('\n')
 		.reduce((acc, line) => (line.length > acc ? line.length : acc), 0);

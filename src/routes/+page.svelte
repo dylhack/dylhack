@@ -4,11 +4,13 @@
 
 	// @ts-ignore
 	const settings: Settings = global.settings;
+	// @ts-ignore
+	const art = global.art;
 </script>
 
 <SvelteToast />
 <main>
-	<App {...settings} />
+	<App {...settings} {art} />
 </main>
 
 <style global>
