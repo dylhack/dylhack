@@ -6,10 +6,8 @@
   import TaskBarButton from "./TaskBarButton.svelte";
 	import { onMount } from "svelte";
 
-  type Social = { name: string; href?: string };
-
   export let hostname = 'example.com';
-  export let socials: Social[] = [{ "name": "GitHub", "href": "https://github.com/dylhack" }];
+  export let socials: Socials[] = [{ "name": "GitHub", "href": "https://github.com/dylhack" }];
   export let title = hostname;
   export let description = `${hostname}'s personal website.`
   export let image = `https://${hostname}/image.png`; 
@@ -41,7 +39,7 @@
 
   const onUnlock = () => isLocked = false;
   const onLock = () => isLocked = true;
-  const onSocialInteraction = (social: Social) => {
+  const onSocialInteraction = (social: Socials) => {
     const { name, href } = social;
     if (href) window.open(href, '_blank');
     else {
@@ -49,7 +47,7 @@
       toast.push('Copied!', { duration: 2000 });
     }
   }
-  const onSocialClick = (e: CustomEvent<{ name: string, href?: string }>) => {
+  const onSocialClick = (e: CustomEvent<Socials>) => {
     onSocialInteraction(e.detail);
   }
 	onMount(() => {

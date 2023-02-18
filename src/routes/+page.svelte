@@ -1,12 +1,14 @@
 <script lang="ts">
 	import { SvelteToast } from '@zerodevx/svelte-toast';
 	import App from './App.svelte';
-	import { title, description, image, hostname, socials } from '../settings.json';
+
+	// @ts-ignore
+	const settings: Settings = global.settings;
 </script>
 
 <SvelteToast  />
 <main>
-	<App {title} {description} {image} {hostname} {socials} />
+	<App {...settings} />
 </main>
 
 <style global>
