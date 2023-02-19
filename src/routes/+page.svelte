@@ -14,9 +14,6 @@
 </main>
 
 <style global>
-	/* or using unpkg.com */
-	@import url('https://unpkg.com/@catppuccin/palette/css/catppuccin.css');
-
 	@font-face {
 		font-family: 'Azeret Mono';
 		src: url('/fonts/AzeretMono-Regular.otf');
@@ -30,6 +27,12 @@
 	}
 
 	:root {
+		/* Catppuccin Theme Source: https://github.com/catppuccin/palette#css */
+
+		--ctp-mocha-base: #1e1e2e;
+		--ctp-mocha-text: #cdd6f4;
+		--ctp-mocha-green: #a6e3a1;
+
 		--bg: var(--ctp-mocha-base);
 		--fg: var(--ctp-mocha-text);
 		--primary: var(--ctp-mocha-green);
