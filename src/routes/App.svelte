@@ -102,7 +102,6 @@
 	</div>
 	<!-- TODO(dylhack): add animations つ ◕_◕ ༽つ -->
 	{#if !isLocked}
-		<p>|{' '.repeat(socialsLength + socialsPadding)}|</p>
 		{#each socials as social, i}
 			<Social
 				href={social.href}
