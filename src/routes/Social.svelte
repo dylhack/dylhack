@@ -3,6 +3,7 @@
 
 	export let name = 'GitHub';
 	export let href: string | undefined;
+	export let value: string | undefined;
 	export let key = 0;
 	export let maxLength = ` ${key} | ${name} `.length;
 	export let padding = 1;
@@ -14,7 +15,7 @@
 	);
 
 	const onClick = () => {
-		dispatch('click', { name, href });
+		dispatch('click', { name, href, value });
 	};
 </script>
 

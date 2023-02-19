@@ -44,10 +44,10 @@
 	const onUnlock = () => (isLocked = false);
 	const onLock = () => (isLocked = true);
 	const onSocialInteraction = (social: Socials) => {
-		const { name, href } = social;
+		const { href, value } = social;
 		if (href) window.open(href, '_blank');
-		else {
-			navigator.clipboard.writeText(name);
+		else if (value) {
+			navigator.clipboard.writeText(value);
 			toast.push('Copied!', { duration: 2000 });
 		}
 	};
@@ -105,8 +105,9 @@
 		<p>|{' '.repeat(socialsLength + socialsPadding)}|</p>
 		{#each socials as social, i}
 			<Social
-				name={social.name}
 				href={social.href}
+				value={social.value}
+				name={social.name}
 				key={i}
 				padding={socialsPadding}
 				maxLength={socialsLength}
@@ -117,7 +118,7 @@
 	{/if}
 </div>
 
-<style>
+<style scoped>
 	.asciiart {
 		margin-left: auto;
 		cursor: pointer;

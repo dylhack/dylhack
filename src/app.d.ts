@@ -6,6 +6,7 @@ declare namespace App {}
 declare type Socials = {
   name: string;
   href?: string;
+  value?: string;
 }
 
 declare type Settings = {

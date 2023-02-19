@@ -42,7 +42,7 @@
 		-webkit-text-size-adjust: 100%;
 
 		/* Toast Notificaitons */
-		--toastBarBackground: var(--ctp-latte-green);
+		--toastBarBackground: var(--ctp-mocha-green);
 		--toastBackground: rgba(0, 0, 0, 0);
 		--toastBoxShadow: none;
 		--toastBarHeight: 2px;
