@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from "svelte";
+	import { getAnalytics, logEvent } from "firebase/analytics";
 
   export let splitAt: number = 5;
   // NOTE(dylhack): credit to https://www.asciiart.eu/animals/cats
@@ -23,7 +24,11 @@
 
   $: hideArt = true;
 
-  const bumpArtState = () => hideArt = !hideArt;
+  const bumpArtState = () => {
+    hideArt = !hideArt;
+    const log = hideArt ? 'art_hidden' : 'art_shown'
+    logEvent(getAnalytics(), log);
+  }
 
   onMount(() => {
     window.addEventListener('keyup', (e: KeyboardEvent) => {

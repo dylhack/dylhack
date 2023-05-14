@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { getAnalytics, logEvent } from 'firebase/analytics';
 	import { onMount } from 'svelte';
 
 	export let name = '';
@@ -9,7 +10,7 @@
 	const divider = '-'.repeat(maxLength);
 
 	// SOURCE: https://unpkg.com/@catppuccin/palette@0.1.6/css/catppuccin.css
-	// I ❤ Catppuccin
+	//         I ❤ Catppuccin
 	const colors = [
 		'inherit',
 		'#f38ba8', // RED
@@ -19,13 +20,14 @@
 		'#74c7ec', // CYAN
 		'#89b4fa', // BLUE
 		'#cba6f7', // PURPLE
-		'#f5c2e7' // PINK
+		'#f5c2e7', // PINK
 	];
 	let colorI = 0;
 
 	$: color = 'inherit';
 
 	const bumpColor = (neg = false) => {
+		logEvent(getAnalytics(), 'color_bumped');
 		if (neg) {
 			colorI -= 1;
 			if (colorI < 0) colorI = colors.length - 1;

@@ -1,0 +1,16 @@
+{
+  "title": "John Doe",
+  "description": "Software developer with expertise in web development.",
+  "hostname": "example.com",
+  "splitAt": 4,
+  "socials": [
+    {
+      "name": "GitHub",
+      "href": "https://github.com/github"
+    },
+    {
+      "name": "Session ID",
+      "value": "05e7b5a60f8d7a0b6213b4d4b93dc8b6f4b7250e0f94468d732829a8fa7c1346be"
+    }
+  ]
+}

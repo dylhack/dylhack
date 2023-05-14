@@ -1,17 +1,18 @@
-# Project Specific
-settings.json
-
 .DS_Store
-node_modules
-/build
 /.svelte-kit
 /package
-.env
-.env.*
-!.env.example
-.vercel
-.output
-.gitignore
+build
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# Project
+static/settings.json
+static/art.txt
+
+# Firebase
+.firebaserc
+.firebase
+
 
 # Logs
 logs

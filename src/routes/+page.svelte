@@ -1,116 +1,151 @@
 <script lang="ts">
-	import { SvelteToast } from '@zerodevx/svelte-toast';
-	import App from './App.svelte';
+	import './styles.css';
+	import { SvelteToast, toast } from '@zerodevx/svelte-toast';
+	import { onMount } from 'svelte';
+	import Host from '$components/Host.svelte';
+	import AsciiArt from '$components/AsciiArt.svelte';
+	import Social from '$components/Social.svelte';
+	import TaskBarButton from '$components/TaskBarButton.svelte';
+	import getSettings from '../lib/settings';
+	import { getAnalytics, logEvent } from 'firebase/analytics';
+	import { initializeApp, type FirebaseOptions } from 'firebase/app';
+	
+	const firebaseConfig: FirebaseOptions = {
+		apiKey: import.meta.env.VITE_APP_FIREBASE_API_KEY,
+		projectId: import.meta.env.VITE_APP_FIREBASE_PROJECT_ID,
+		appId: import.meta.env.VITE_APP_FIREBASE_APP_ID,
+		measurementId: import.meta.env.VITE_APP_FIREBASE_MEASUREMENT_ID,
+	};
+	const { splitAt, art, hostname, socials, title, description } = getSettings();
+	const longestLine = art
+		.split('\n')
+		.reduce((acc, line) => (line.length > acc ? line.length : acc), 0);
 
-	// @ts-ignore
-	const settings: Settings = global.settings;
-	// @ts-ignore
-	const art = global.art;
+	// Meta tags
+	const [name, tld] = hostname.split('.');
+	const padding = 1;
+
+	// Taskbar Button
+	const buttonLocked = '+';
+	const buttonUnlocked = '-';
+	const buttonPadding = padding;
+	const buttonLength = Math.max(buttonLocked.length, buttonUnlocked.length) + buttonPadding * 2;
+
+	// Socials length
+	const socialsOffset = buttonLength + 2;
+	const socialsPadding = padding;
+	let socialsLength = socialsOffset + longestLine;
+	socials.forEach((social) => {
+		const x = socialsOffset + social.name.length;
+		if (x > socialsLength) socialsLength = x;
+	});
+
+	// Host
+	const hostsLength = socialsLength + socialsPadding - (buttonLength + 1);
+
+	$: isLocked = true;
+
+	const onUnlock = () => {
+		logEvent(getAnalytics(), 'lock_engaged');
+		isLocked = false;
+	};
+
+	const onLock = () => {
+		logEvent(getAnalytics(), 'lock_engaged');
+		isLocked = true;
+	};
+
+	const onSocialInteraction = (social: Socials<any>) => {
+		const { href, value } = social;
+		logEvent(getAnalytics(), 'social_clicked', { social });
+		if (href) {
+			window.open(href, '_blank');
+		} else if (value) {
+			navigator.clipboard.writeText(value);
+			toast.push('Copied!', { duration: 2000 });
+		}
+	};
+
+	const onSocialClick = (e: CustomEvent<Socials<any>>) => {
+		onSocialInteraction(e.detail);
+	};
+
+	const initFirebase = () => {
+		initializeApp(firebaseConfig);
+	};
+
+	onMount(() => {
+		initFirebase();
+		window.addEventListener('keyup', (e: KeyboardEvent) => {
+			if (isLocked) return;
+			if (/[0-9]/.test(e.key)) {
+				const n = parseInt(e.key);
+				if (n < socials.length) {
+					const social = socials[n];
+					if (social) onSocialInteraction(social);
+				}
+			}
+		});
+	});
 </script>
 
-<SvelteToast />
+<svelte:head>
+	<!-- Primary Meta Tags -->
+	<meta name="title" content={title} />
+	<meta name="description" content={description} />
+	<!-- Open Graph -->
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content={title} />
+	<meta property="og:description" content={description} />
+	<!-- Twitter -->
+	<meta property="twitter:card" content="summary_small_image" />
+	<meta property="twitter:title" content={title} />
+	<meta property="twitter:description" content={description} />
+	<title>{title}</title>
+</svelte:head>
+
+<SvelteToast/>
 <main>
-	<App {...settings} {art} />
+	<div class="asciiart">
+		<AsciiArt {art} {splitAt} />
+	</div>
+	<div class="taskbar">
+		<TaskBarButton
+			on:unlock={onUnlock}
+			on:lock={onLock}
+			locked={buttonLocked}
+			unlocked={buttonUnlocked}
+			maxLength={buttonLength}
+			padding={buttonPadding}
+		/>
+		<Host {name} tld={'.' + tld} maxLength={hostsLength} />
+	</div>
+	<!-- TODO(dylhack): add animations つ ◕_◕ ༽つ -->
+	{#if !isLocked}
+		{#each socials as social, i}
+			<Social
+				href={social.href}
+				value={social.value}
+				name={social.name}
+				key={i}
+				padding={socialsPadding}
+				maxLength={socialsLength}
+				on:click={onSocialClick}
+			/>
+		{/each}
+		<p>'{'-'.repeat(socialsLength + socialsPadding)}'</p>
+	{/if}
 </main>
 
-<style global>
-	@font-face {
-		font-family: 'Azeret Mono';
-		src: url('/fonts/AzeretMono-Regular.otf');
-		font-weight: 400;
+<style scoped>
+	.asciiart {
+		margin-left: auto;
+		cursor: pointer;
+		width: 100%;
 	}
 
-	@font-face {
-		font-family: 'Azeret Mono';
-		src: url('/fonts/AzeretMono-Bold.otf');
-		font-weight: bold;
-	}
-
-	:root {
-		/* Catppuccin Theme Source: https://github.com/catppuccin/palette#css */
-
-		--ctp-mocha-base: #1e1e2e;
-		--ctp-mocha-text: #cdd6f4;
-		--ctp-mocha-green: #a6e3a1;
-
-		--bg: var(--ctp-mocha-base);
-		--fg: var(--ctp-mocha-text);
-		--primary: var(--ctp-mocha-green);
-		--secondary: var(--ctp-mocha-green);
-
-		font-synthesis: none;
-		text-rendering: optimizeLegibility;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		-webkit-text-size-adjust: 100%;
-
-		/* Toast Notificaitons */
-		--toastBarBackground: var(--ctp-mocha-green);
-		--toastBackground: rgba(0, 0, 0, 0);
-		--toastBoxShadow: none;
-		--toastBarHeight: 2px;
-	}
-
-	body {
-		font-family: 'Azeret Mono', monospace;
-		color: var(--ctp-mocha-text);
-		background-color: var(--ctp-mocha-base);
-
-		margin: 0;
-		padding: 0;
+	.taskbar {
 		display: flex;
-		flex-direction: column;
-		place-items: center;
-
-		min-width: 320px;
-		min-height: 100vh;
-
-		-webkit-user-select: none;
-		-ms-user-select: none;
-		user-select: none;
-	}
-
-	main {
-		line-height: 0;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		height: 100vh;
-		gap: 0;
-	}
-
-	a {
-		text-decoration: none;
-		color: inherit;
-	}
-
-	p {
-		padding-top: 0;
-		margin-top: 0;
-		white-space: pre;
-	}
-
-	@media (min-width: 320px) {
-		body {
-			font-size: 1.3em;
-		}
-	}
-
-	@media (max-width: 370px) {
-		body {
-			font-weight: bold;
-		}
-	}
-
-	@media (min-width: 425px) {
-		body {
-			font-size: 1.5em;
-		}
-	}
-
-	@media (min-width: 768px) {
-		body {
-			font-size: 2em;
-		}
+		flex-direction: row;
 	}
 </style>

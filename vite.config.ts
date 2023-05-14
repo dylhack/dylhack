@@ -1,16 +1,20 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import type { UserConfig } from 'vite';
-import settings from './settings.json';
+import settings from './static/settings.json';
 import fs from 'node:fs';
 
-const data = fs.readFileSync('./art.txt', 'utf8');
+const data = fs.readFileSync('./static/art.txt', 'utf8');
 const art = data.toString().replace(/\n$/, "");
-
+const app_settings = {
+	...settings,
+	art,
+}
 
 const config: UserConfig = {
 	plugins: [sveltekit()],
-	base: "./",
-	define: { global: { settings, art }},
+	define: {
+		app_settings,
+	},
 };
 
 export default config;
