@@ -24,7 +24,7 @@
 
 	onMount(() => {
 		window.addEventListener('keyup', (e: KeyboardEvent) => {
-			if (e.code === 'Space' || e.code === 'Tab') bumpState();
+			if (e.code === 'Space') bumpState();
 		});
 	});
 </script>
@@ -36,8 +36,21 @@
 </div>
 
 <style scoped>
+	@keyframes primary {
+		0% {
+			color: var(--primary);
+		}
+		50% {
+			color: #d5ffd5;
+		}
+		100% {
+			color: var(--primary);
+		}
+	}
+
 	p {
 		color: var(--primary);
+		animation: primary 2s infinite;
 	}
 
 	div {
