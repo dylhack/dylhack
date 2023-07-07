@@ -79,7 +79,7 @@
 		window.addEventListener('keyup', (e: KeyboardEvent) => {
 			if (isLocked) return;
 			if (/[0-9]/.test(e.key)) {
-				const n = parseInt(e.key);
+				const n = (parseInt(e.key) - 1);
 				if (n < socials.length) {
 					const social = socials[n];
 					if (social) onSocialInteraction(social);
@@ -127,7 +127,7 @@
 				href={social.href}
 				value={social.value}
 				name={social.name}
-				key={i}
+				key={i + 1}
 				padding={socialsPadding}
 				maxLength={socialsLength}
 				on:click={onSocialClick}
