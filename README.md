@@ -10,7 +10,6 @@
 | X |          dylhack.dev           |
 '---'--------------------------------'
 |                                    |
-|  Full stack engineer in proptech,  |
-|  visit my website for my socials.  |
+|  Ruby on Rails engineer            |
 '------------------------------------'
 ```
